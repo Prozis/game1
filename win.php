@@ -1,14 +1,18 @@
 <?php
-unset($_COOKIE['hp']); //Удаляем куку
+session_start();
+//создаем куку что-бы заново не читать правила игры
+setcookie('newround', 1, time() + 600);
 ?>
 <!DOCTYPE html>
 <html lang="ru" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Game end</title>
   </head>
   <body>
     <?php
+    //удаляем переменную со здоровьем
+unset($_SESSION["hp"]);
 if($_GET['win'] == 1){
   $winer = "Player";
 }

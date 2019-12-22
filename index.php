@@ -1,32 +1,28 @@
 <?php
+session_start();
 $start_hp = array('player_hp' => 3, 'ii_hp' => 3); //начальный запас HP
-if(!isset($_COOKIE["hp"])){
-  setcookie("hp", json_encode($start_hp), time() + 360); //Создаем куку если её нет
-  header('Location: /');
+if(!isset($_SESSION["hp"])){
+  $_SESSION["hp"] = $start_hp;
+  if(!isset($_COOKIE['newround'])){
+
+  header('Location: /rulles.php');
 }
-$curent_hp = json_decode($_COOKIE["hp"], true); //получаем значения HP из куки
-//var_dump($curent_hp);
-if ($curent_hp['player_hp'] === 0) {
-  setcookie("hp", null, -1);
-//  unset($_COOKIE['hp']); //Удаляем куку
-  header('Location: /win.php?win=0');
 }
-if ($curent_hp['ii_hp'] === 0) {
-setcookie("hp", null, -1);
-  //unset($_COOKIE['hp']); //Удаляем куку
-  header('Location: /win.php?win=1');
+if ($_SESSION["hp"]['player_hp'] === 0) {
+header('Location: /win.php?win=0');
+}
+if ($_SESSION["hp"]['ii_hp'] === 0) {
+header('Location: /win.php?win=1');
 }
 $strike = rand(1, 3);
 
 if(isset($_GET['num'])){
   if($strike == $_GET['num']){
-    $curent_hp["player_hp"] -= 1;
-  setcookie("hp", json_encode($curent_hp), time() + 360);
-  //  header('Location: /');
+    $_SESSION["hp"]['player_hp'] -= 1;
+  header('Location: /');
   } else{
-    $curent_hp["ii_hp"] -= 1;
-  setcookie("hp", json_encode($curent_hp), time() + 360);
-  //  header('Location: /');
+    $_SESSION["hp"]['ii_hp'] -= 1;
+   header('Location: /');
   }
 } else{
   echo "Жми кнопку";
@@ -45,13 +41,13 @@ echo "<br>";
 </head>
 <body>
   <?php
-  var_dump($curent_hp);
+//  var_dump($curent_hp);
    ?>
   <a href="index.php"><h2>На главную</h2></a>
   <h1>Игра1</h1>
   <div class="container">
     <div class="player">
-      <progress value="<? echo $curent_hp['player_hp'] ?>" max="<? echo $start_hp['player_hp'] ?>">
+      <progress value="<? echo $_SESSION["hp"]['player_hp'] ?>" max="<? echo $start_hp['player_hp'] ?>">
         Здоровье
       </progress>
       <br>
@@ -65,13 +61,18 @@ echo "<br>";
 
     <div class="player">
 
-      <progress value="<? echo $curent_hp['ii_hp'] ?>" max="<? echo $start_hp['ii_hp'] ?>">
+      <progress value="<? echo $_SESSION["hp"]['ii_hp'] ?>" max="<? echo $start_hp['ii_hp'] ?>">
         Текст
       </progress>
       <br>
-      Ход ИИ: <?php echo $strike ?>
-
+      Ход ИИ: <?php echo $strike ?><br>
     </div>
   </div>
+  <?php
+//для отладки
+  var_dump($_SESSION);
+
+   ?>
+
 </body>
 </html>

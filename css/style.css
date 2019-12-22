@@ -6,7 +6,7 @@ body{
   font-size: 20px;
   padding: 30px;
   margin: 0;
-  background-color: #D6E0E4;
+  background-color: #F0FFFF;
   text-align: center;
 }
 .container{
@@ -18,4 +18,16 @@ body{
 button{
   padding: 10px 35px;
   margin: 10px;
+}
+.rulles{
+  margin: 0 auto;
+  max-width: 700px;
+  background-color: #94BE91;
+  padding: 50px;
+}
+.rulles a{
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #C4DEDE;
 }
