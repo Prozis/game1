@@ -1,3 +1,7 @@
+<?php
+//создаем куку что-бы заново не читать правила игры
+setcookie('newround', 1, time() + 6000);
+?>
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -6,6 +10,9 @@
     <title>Привила</title>
   </head>
   <body>
+    <div class="container">
+
+
     <div class="rulles">
       <h2>Добро пожаловать в игру</h2>
       <p>Привила просты: жмеш кнопку с цифрой от 1 до 3, компьютер тоже ходит,
@@ -14,5 +21,6 @@
   проиграл</p>
   <a href="index.php">Понял, начинаем</a>
     </div>
+      </div>
   </body>
 </html>
